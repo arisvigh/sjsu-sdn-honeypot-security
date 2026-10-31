@@ -1,15 +1,15 @@
-# Secure archival release notes
+# Security release notes
 
-The two legacy controller scripts have been reviewed and sanitized offline, but have **not been committed to this repository** because automated publication was blocked. Their release package is available separately from the project discussion.
+## Public repository status
 
-Changes in sanitized copies:
-- Removed embedded administrator credentials; use `ODL_USERNAME` and `ODL_PASSWORD` environment variables.
-- Replaced fixed controller address with `ODL_CONTROLLER_HOST`.
-- Replaced fixed Kippo log paths with `KIPPO_LOG_PATH`.
-- Removed an interactive debugger statement and disabled destructive log truncation.
-- Required explicit `ENABLE_LEGACY_FLOW_WRITES=I_UNDERSTAND` in an isolated test environment before controller writes.
-- Added `.env.example` and `.gitignore` rules for local secrets and logs.
+- Original, unchanged 2015 Mininet topology: [`archive/2015/network_topology.py`](../archive/2015/network_topology.py).
+- Original controller / attack-response scripts: **not published** in this repository. Historical copies include demonstration credentials, HTTP-based controller requests and fixed lab settings.
+- Modern Python 3 replacements: [`src/HoneypotInSDN.py`](../src/HoneypotInSDN.py), [`src/AutomatedScriptOnAttack.py`](../src/AutomatedScriptOnAttack.py) and [`src/sdn_security.py`](../src/sdn_security.py).
 
-**Important:** These are Python 2-era historical demonstrations, not audited, modernized, or verified operational security software. Some legacy HTTP/controller assumptions remain. Avoid running them on production networks. A safe modern implementation needs substantial redesign, validation and authorization controls.
+## 2026 security design
 
-The sanitized files must still be reviewed locally before public upload. The source file `src/network_topology.py` is already published.
+The modern scripts parse a configurable local honeypot log, validate and deduplicate IPs, and emit JSON proposals for human review. No controller URL or credentials are needed because these modules have **no network-writing functionality**. Log processing does not truncate or modify its input. `.gitignore` excludes environment files and logs. `.env.example` remains an illustrative legacy configuration reference; the read-only scripts only use `KIPPO_LOG_PATH` and `SDN_SWITCH_ID`.
+
+The modern code should not be described as a patched, drop-in equivalent to the historic flow programmer. An actual network enforcement component would require separate, tested implementation with authenticated TLS, restrictive permissions and explicit operator approvals.
+
+See [modernization details](PYTHON3_MODERNIZATION.md).
