@@ -3,7 +3,29 @@
 **Master's Final-Year Project | San José State University | 2015**  
 **M.S. Software Engineering — Cloud Computing and Virtualization**
 
-> **Archive reconstruction (2026):** This repository documents a 2015 student group project from a surviving demonstration recording and a July 13, 2015 project-status email. It is a historical portfolio case study, **not** a claim that the original source code, configurations, measurements, or deployment are available here. Technical details labeled *inferred* should be checked against surviving project materials.
+> **Archive reconstruction (2026):** This repository documents a 2015 student group project from a surviving demonstration recording and a July 13, 2015 project-status email. It is a historical portfolio case study, **not** a claim that the complete original source code, configurations, measurements, or deployment are available here. Technical details labeled *inferred* should be checked against surviving project materials.
+
+## Repository guide
+
+Two distinct eras are kept separate so historical work is not confused with current software:
+
+| Area | Contents | Status |
+| --- | --- | --- |
+| [`archive/2015/`](archive/2015/) | Recovered original Mininet topology, unchanged | 2015 historical artifact; do not assume modern compatibility |
+| [`src/`](src/) | Modern Python 3 log analysis and read-only response proposals | 2026 reconstruction; does not make controller changes |
+| [`tests/`](tests/) | Unit tests for the 2026 modules | Python standard-library tests |
+| [`docs/PYTHON3_MODERNIZATION.md`](docs/PYTHON3_MODERNIZATION.md) | Migration scope and explicit limits | Documentation |
+
+**What is and is not modernized:** the original `network_topology.py` is deliberately preserved as it was written. The two original controller scripts have *not* been committed as historical source because they contain insecure legacy configuration. Instead, files with the same names in `src/` are entirely new **read-only replacements**. They are not drop-in ports of the legacy controller automation. Flow-rule programming, authenticated controller integration, and production-grade detection remain out of scope.
+
+### Run the modern demonstration
+
+```bash
+python -m unittest discover -s tests -v
+python src/AutomatedScriptOnAttack.py --log path/to/sanitized-kippo.log --switch-id s2
+```
+
+The second command emits JSON proposals for manual review. It does not connect to an SDN controller.
 
 ## Overview
 
@@ -74,11 +96,11 @@ flowchart TD
 | Network emulation | Mininet | Simulated hosts and switches |
 | Virtual switching | Open vSwitch | Software forwarding and flow-table enforcement |
 | SDN control plane | OpenDaylight (Helium release referenced in email) | Controller-based topology and flow management |
-| Controller integration | REST APIs and JSON (described in project email) | Interface for controller queries and dynamic rule updates; exact endpoints not preserved |
+| Controller integration | Legacy OpenDaylight REST APIs and JSON | Exact historical API paths are visible in recovered scripts, but no modern connector is implemented |
 | Honeypot | Kippo | Capture SSH attacker interactions |
 | Reporting | Kippo-Graph | Visualizations of honeypot logs and attacker commands |
 | Threat intelligence | AlienVault OTX / related AlienVault site shown | Demonstration of suspicious-IP research |
-| Automation | Shell / scripting (language not confirmed) | Read telemetry and modify network policy |
+| Automation | Python 2 scripts in 2015; Python 3 read-only reconstruction in 2026 | Historical scripts used controller APIs; modern scripts only emit review proposals |
 
 ## Timeline and evidence
 
@@ -96,7 +118,7 @@ flowchart TD
 
 ## What this archive does *not* contain
 
-- Original source code, controller API requests, topology scripts, flow-table configurations, honeypot configuration, deployment instructions, or full final report.
+- The full original codebase, original controller scripts in this public repo, complete flow-table configurations, honeypot configuration, deployment instructions, or the final academic report.
 - Verified throughput, latency, true-positive / false-positive detection metrics, or independently reproducible benchmarks.
 - Confirmed names of every contributor or a precise division of responsibilities.
 
