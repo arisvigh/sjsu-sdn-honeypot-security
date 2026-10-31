@@ -49,15 +49,35 @@ The project is a useful early example of **programmable network security**: inst
 
 ### Project screenshots
 
-> Screenshots extracted from the original demonstration recording are available in the accompanying project archive. They will be linked here when the image files are added to the repository.
+The following seven frames are from the archived 2015 demonstration recording and are presented in recording order.
 
-**SDN topology and controller** — OpenDaylight topology and flow-management demonstration.
+**1. SDN topology and controller**
 
-**Flow-management / connectivity checks** — Terminal commands during network flow testing.
+![SDN demonstration frame at 00:55](assets/demo-55s-web.jpg)
 
-**Attack simulation and response automation** — Terminal activity during honeypot response demo.
+**2. Network flow and connectivity testing**
 
-**Honeypot analytics** — Kippo-Graph attacker-activity dashboard.
+![SDN demonstration frame at 01:55](assets/demo-115s-web.jpg)
+
+**3. Controller and topology inspection**
+
+![SDN demonstration frame at 03:35](assets/demo-215s-web.jpg)
+
+**4. Attack simulation and response workflow**
+
+![SDN demonstration frame at 05:35](assets/demo-335s-web.jpg)
+
+**5. Response automation and flow management**
+
+![SDN demonstration frame at 07:10](assets/demo-430s-web.jpg)
+
+**6. Honeypot activity analytics**
+
+![SDN demonstration frame at 08:35](assets/demo-515s-web.jpg)
+
+**7. Threat intelligence and attack analysis**
+
+![SDN demonstration frame at 10:05](assets/demo-605s-web.jpg)
 
 ## Architecture
 
