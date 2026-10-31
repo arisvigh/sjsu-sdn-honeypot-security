@@ -1,15 +1,13 @@
-# Recovered source code
+# Recovered historical source and modern reconstruction
 
-This repository contains a verified archival copy of `src/network_topology.py` from the 2015 SJSU group project.
+## 2015 archive
 
-The uploaded historical materials also include `HoneypotInSDN.py` and `AutomatedScriptOnAttack.py`. These two files were reviewed, but they are not currently published here.
+[`archive/2015/network_topology.py`](../archive/2015/network_topology.py) is an unchanged copy of the recovered Mininet topology. It defines five switches and nine hosts attached to each of switches s2–s5 (36 hosts total), with eight inter-switch links. Its header states ten hosts per switch, but the executable code differs.
 
-## Code review findings
+Two additional Python 2-era controller scripts were provided for review: `HoneypotInSDN.py` and `AutomatedScriptOnAttack.py`. **Their original copies are not in this public repository.** They have obsolete REST integrations and embedded demonstration settings. The submitted scripts show named flow updates, but do not demonstrate precise source-IP matches for the proposed DROP rules.
 
-The topology creates five switches and 36 hosts, with nine hosts attached to each of four peripheral switches. The first switch has no directly attached hosts. It connects to the other four switches, which also have some connections between them.
+## 2026 reconstruction
 
-The remaining files describe controller interactions, network rule management, log processing and scripted responses. They use legacy Python syntax and obsolete software APIs. They also contain demo credentials, fixed system configuration and other historical assumptions. None of the recovered scripts has been tested against a modern deployment.
+[`src/HoneypotInSDN.py`](../src/HoneypotInSDN.py) and [`src/AutomatedScriptOnAttack.py`](../src/AutomatedScriptOnAttack.py) reuse the **filenames** of two historical scripts, but are **new, read-only Python 3 replacements**, supported by `src/sdn_security.py`. They parse logs and emit review proposals. They **do not** contact OpenDaylight, provision topology, or install network flows.
 
-In particular, the recovered logic does not by itself establish that individual observed IP addresses were used as matching criteria for network rules. Avoid treating this portfolio as a currently supported intrusion-prevention product.
-
-These files are artifacts of a collaborative student project; individual code authorship has not been established.
+See [modernization notes](PYTHON3_MODERNIZATION.md) and [security release notes](SECURITY_RELEASE_NOTES.md). This is documentation of a student-team project, not an attribution of all code to any one participant. No modern controller integration has been validated.
